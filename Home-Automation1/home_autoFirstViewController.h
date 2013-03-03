@@ -10,4 +10,6 @@
 
 @interface home_autoFirstViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *testLabel1;
+
 @end
