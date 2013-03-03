@@ -1,0 +1,29 @@
+//
+//  home_autoFirstViewController.m
+//  Home-Automation1
+//
+//  Created by Ben Gelsey on 3/3/13.
+//  Copyright (c) 2013 Self. All rights reserved.
+//
+
+#import "home_autoFirstViewController.h"
+
+@interface home_autoFirstViewController ()
+
+@end
+
+@implementation home_autoFirstViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+@end
