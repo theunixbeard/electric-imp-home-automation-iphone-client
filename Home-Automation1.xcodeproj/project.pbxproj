@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F3749EB16EAB27C00F25AF1 /* OutletSettingsMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3749EA16EAB27C00F25AF1 /* OutletSettingsMasterController.m */; };
+		2F3749EE16EAB40800F25AF1 /* OutletSettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3749ED16EAB40800F25AF1 /* OutletSettingsCell.m */; };
+		2F3749F816EAEBED00F25AF1 /* OutletSettingsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3749F716EAEBED00F25AF1 /* OutletSettingsDetailController.m */; };
 		2FFD60B516E3FA3C000E3366 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFD60B416E3FA3C000E3366 /* UIKit.framework */; };
 		2FFD60B716E3FA3C000E3366 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFD60B616E3FA3C000E3366 /* Foundation.framework */; };
 		2FFD60B916E3FA3C000E3366 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFD60B816E3FA3C000E3366 /* CoreGraphics.framework */; };
@@ -19,14 +22,21 @@
 		2FFD60CE16E3FA3C000E3366 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FFD60CC16E3FA3C000E3366 /* MainStoryboard.storyboard */; };
 		2FFD60D316E3FA3C000E3366 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFD60D216E3FA3C000E3366 /* first.png */; };
 		2FFD60D516E3FA3C000E3366 /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFD60D416E3FA3C000E3366 /* first@2x.png */; };
-		2FFD60D816E3FA3C000E3366 /* home_autoSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFD60D716E3FA3C000E3366 /* home_autoSecondViewController.m */; };
 		2FFD60DA16E3FA3C000E3366 /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFD60D916E3FA3C000E3366 /* second.png */; };
 		2FFD60DC16E3FA3C000E3366 /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFD60DB16E3FA3C000E3366 /* second@2x.png */; };
 		2FFD60E416E433D4000E3366 /* OutletPowerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFD60E316E433D4000E3366 /* OutletPowerController.m */; };
+		2FFD60E716E97870000E3366 /* Outlet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFD60E616E97870000E3366 /* Outlet.m */; };
+		2FFD60EA16EA917D000E3366 /* TableViewSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFD60E916EA917D000E3366 /* TableViewSwitchCell.m */; };
 		5A76CB5BD505440F9DFD6A2A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDCC0C6C52A546178B399A94 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F3749E916EAB27C00F25AF1 /* OutletSettingsMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutletSettingsMasterController.h; sourceTree = "<group>"; };
+		2F3749EA16EAB27C00F25AF1 /* OutletSettingsMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletSettingsMasterController.m; sourceTree = "<group>"; };
+		2F3749EC16EAB40800F25AF1 /* OutletSettingsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutletSettingsCell.h; sourceTree = "<group>"; };
+		2F3749ED16EAB40800F25AF1 /* OutletSettingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletSettingsCell.m; sourceTree = "<group>"; };
+		2F3749F616EAEBED00F25AF1 /* OutletSettingsDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutletSettingsDetailController.h; sourceTree = "<group>"; };
+		2F3749F716EAEBED00F25AF1 /* OutletSettingsDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletSettingsDetailController.m; sourceTree = "<group>"; };
 		2FFD60B116E3FA3C000E3366 /* Home-Automation1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Home-Automation1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FFD60B416E3FA3C000E3366 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2FFD60B616E3FA3C000E3366 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -43,12 +53,14 @@
 		2FFD60CD16E3FA3C000E3366 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		2FFD60D216E3FA3C000E3366 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
 		2FFD60D416E3FA3C000E3366 /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
-		2FFD60D616E3FA3C000E3366 /* home_autoSecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = home_autoSecondViewController.h; sourceTree = "<group>"; };
-		2FFD60D716E3FA3C000E3366 /* home_autoSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = home_autoSecondViewController.m; sourceTree = "<group>"; };
 		2FFD60D916E3FA3C000E3366 /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
 		2FFD60DB16E3FA3C000E3366 /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
 		2FFD60E216E433D4000E3366 /* OutletPowerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutletPowerController.h; sourceTree = "<group>"; };
 		2FFD60E316E433D4000E3366 /* OutletPowerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletPowerController.m; sourceTree = "<group>"; };
+		2FFD60E516E97870000E3366 /* Outlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Outlet.h; sourceTree = "<group>"; };
+		2FFD60E616E97870000E3366 /* Outlet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Outlet.m; sourceTree = "<group>"; };
+		2FFD60E816EA917D000E3366 /* TableViewSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewSwitchCell.h; sourceTree = "<group>"; };
+		2FFD60E916EA917D000E3366 /* TableViewSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewSwitchCell.m; sourceTree = "<group>"; };
 		34F3B2DC642D4296975A4C88 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		CDCC0C6C52A546178B399A94 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -103,12 +115,20 @@
 				2FFD60C316E3FA3C000E3366 /* home_autoAppDelegate.h */,
 				2FFD60C416E3FA3C000E3366 /* home_autoAppDelegate.m */,
 				2FFD60CC16E3FA3C000E3366 /* MainStoryboard.storyboard */,
+				2FFD60E516E97870000E3366 /* Outlet.h */,
+				2FFD60E616E97870000E3366 /* Outlet.m */,
 				2FFD60E216E433D4000E3366 /* OutletPowerController.h */,
 				2FFD60E316E433D4000E3366 /* OutletPowerController.m */,
+				2F3749E916EAB27C00F25AF1 /* OutletSettingsMasterController.h */,
+				2F3749EA16EAB27C00F25AF1 /* OutletSettingsMasterController.m */,
+				2F3749F616EAEBED00F25AF1 /* OutletSettingsDetailController.h */,
+				2F3749F716EAEBED00F25AF1 /* OutletSettingsDetailController.m */,
+				2FFD60E816EA917D000E3366 /* TableViewSwitchCell.h */,
+				2FFD60E916EA917D000E3366 /* TableViewSwitchCell.m */,
+				2F3749EC16EAB40800F25AF1 /* OutletSettingsCell.h */,
+				2F3749ED16EAB40800F25AF1 /* OutletSettingsCell.m */,
 				2FFD60D216E3FA3C000E3366 /* first.png */,
 				2FFD60D416E3FA3C000E3366 /* first@2x.png */,
-				2FFD60D616E3FA3C000E3366 /* home_autoSecondViewController.h */,
-				2FFD60D716E3FA3C000E3366 /* home_autoSecondViewController.m */,
 				2FFD60D916E3FA3C000E3366 /* second.png */,
 				2FFD60DB16E3FA3C000E3366 /* second@2x.png */,
 				2FFD60BB16E3FA3C000E3366 /* Supporting Files */,
@@ -221,8 +241,12 @@
 			files = (
 				2FFD60C116E3FA3C000E3366 /* main.m in Sources */,
 				2FFD60C516E3FA3C000E3366 /* home_autoAppDelegate.m in Sources */,
-				2FFD60D816E3FA3C000E3366 /* home_autoSecondViewController.m in Sources */,
 				2FFD60E416E433D4000E3366 /* OutletPowerController.m in Sources */,
+				2FFD60E716E97870000E3366 /* Outlet.m in Sources */,
+				2FFD60EA16EA917D000E3366 /* TableViewSwitchCell.m in Sources */,
+				2F3749EB16EAB27C00F25AF1 /* OutletSettingsMasterController.m in Sources */,
+				2F3749EE16EAB40800F25AF1 /* OutletSettingsCell.m in Sources */,
+				2F3749F816EAEBED00F25AF1 /* OutletSettingsDetailController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

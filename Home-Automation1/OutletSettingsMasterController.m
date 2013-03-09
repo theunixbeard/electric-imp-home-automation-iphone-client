@@ -1,24 +1,23 @@
 //
-//  OutletPowerController.m
+//  OutletSettingsController.m
 //  Home-Automation1
 //
-//  Created by Ben Gelsey on 3/3/13.
+//  Created by Ben Gelsey on 3/8/13.
 //  Copyright (c) 2013 Self. All rights reserved.
 //
 
-#import "OutletPowerController.h"
+#import "OutletSettingsMasterController.h"
 #import "AFNetworking.h"
 #import "Outlet.h"
-#import "TableViewSwitchCell.h"
+#import "OutletSettingsDetailController.h"
 
-@interface OutletPowerController ()
+@interface OutletSettingsMasterController ()
 
 @end
 
-@implementation OutletPowerController
+@implementation OutletSettingsMasterController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
@@ -26,15 +25,15 @@
     return self;
 }
 
-- (void)viewDidLoad{
-  NSLog(@"ViewDidLoad OutletPowerController");
+- (void)viewDidLoad {
+  NSLog(@"ViewDidLoad OutletSettingsController");
   [super viewDidLoad];
 
-  // Uncomment the following line to preserve selection between presentations.
-  // self.clearsSelectionOnViewWillAppear = NO;
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
  
-  // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-  //self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
   
   self.masterOutletList = [[NSMutableArray alloc] init];
   
@@ -43,7 +42,7 @@
   AFJSONRequestOperation *operation;
   operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                NSLog(@"ViewDidLoad OutletPowerController Success");
+                                                                NSLog(@"ViewDidLoad OutletSettingsController Success");
                                                                 //NSLog(@"Response: %@", JSON);
                                                                 for (NSDictionary *jsonDict in JSON) {
                                                                   [self.masterOutletList addObject:[[Outlet alloc]
@@ -55,12 +54,13 @@
                                                                                                     userId:[jsonDict objectForKey:@"user_id"]]];
                                                                 }
                                                                 [self.tableView reloadData];
-                                            
+                                                                
                                                               } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                 NSLog(@"Received an HTTP %d", response.statusCode);
                                                                 NSLog(@"The error was: %@", error);
                                                               }];
   [operation start];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,23 +76,19 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  // Return the number of rows in the section.
-  return self.masterOutletList.count;
+    // Return the number of rows in the section.
+    return self.masterOutletList.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-  static NSString *CellIdentifier = @"OutletPowerCell";
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  static NSString *CellIdentifier = @"OutletSettingsCell";
   
-
-  TableViewSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   Outlet *outlet = [self.masterOutletList objectAtIndex:indexPath.row];
-  [[cell cellLabel] setText:[outlet humanReadableOutletName]];
-  if ([outlet.state boolValue]) {
-    cell.cellSwitch.on = YES;
-  } else {
-    cell.cellSwitch.on = NO;
-  }
-
+  [[cell textLabel] setText:[outlet humanReadableOutletName]];
+  
   return cell;
 }
 
@@ -135,27 +131,12 @@
 }
 */
 
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-}
-
--(void)onTableViewSwitchCellSwitchToggle:(id)sender cell:(TableViewSwitchCell *)cell {
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
   
-  NSIndexPath* path = [self.tableView indexPathForCell:cell];
-  Outlet* toggledOutlet = [self.masterOutletList objectAtIndex:path.row];
-  
-  UISwitch *switch_sender = (UISwitch *) sender;
-  NSLog([NSString stringWithFormat:@"Outlet #%@ Power Switch Toggled to: %@", toggledOutlet.userOutletNumber, switch_sender.on ? @"YES" : @"NO"]);
-  // Actually send this to back end here (Using outletId NOT userOutletNumber...!)
+  if([segue.identifier isEqualToString:@"ShowDetailSegue"]){
+    OutletSettingsDetailController *controller = [segue destinationViewController];
+    controller.outlet = [self.masterOutletList objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+  }
 }
 
 @end

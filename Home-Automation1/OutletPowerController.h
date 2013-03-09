@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TableViewSwitchCell.h"
 
-@interface OutletPowerController : UITableViewController
+
+@interface OutletPowerController : UITableViewController <TableViewSwitchCellDelegate>
+
+@property (nonatomic, strong) NSMutableArray *masterOutletList;
 
 @end
