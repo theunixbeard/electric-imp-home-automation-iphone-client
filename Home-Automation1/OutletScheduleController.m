@@ -107,6 +107,9 @@
 {
     // Return the number of rows in the section.
   NSMutableArray *dayArray = (NSMutableArray *) [self.masterScheduleList objectAtIndex:section];
+  if (self.tableView.editing) {
+    return dayArray.count + 1;
+  }
   return dayArray.count;
 }
 
@@ -117,20 +120,39 @@
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
   // Configure the cell...
-  [[cell textLabel] setText:[[[self.masterScheduleList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] humanReadableScheduleTime]];
+  NSMutableArray *dayArray = [self.masterScheduleList objectAtIndex:indexPath.section];
+  if (indexPath.row == [dayArray count]) {
+    [[cell textLabel] setText: @"Add New Time"];
+    [[cell detailTextLabel] setText:@""];
+  }else {
+    Schedule *schedule = [dayArray objectAtIndex:indexPath.row];
+    [[cell textLabel] setText:[schedule humanReadableScheduleTime]];
+    [[cell detailTextLabel] setText:[schedule.state boolValue] ? @"on" : @"off"];
+  }
   return cell;
 }
 
-
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (indexPath.row == [[self.masterScheduleList objectAtIndex: indexPath.section] count]) {
+    return UITableViewCellEditingStyleInsert;
+  }
+  return UITableViewCellEditingStyleDelete;
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-  
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+  [super setEditing:editing animated:animated];
+
+  NSMutableArray* paths = [[NSMutableArray alloc] init];
+  for (int i = 0; i < 7; ++i) {
+    NSInteger rowCount = [[self.masterScheduleList objectAtIndex:i] count];
+    NSIndexPath *path = [NSIndexPath indexPathForRow:rowCount inSection:i];
+    [paths addObject:path];
+  }
+  if (editing) {
+    [self.tableView insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationBottom];
+  } else {
+    [self.tableView deleteRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationBottom];
+  }
 }
 
 /*

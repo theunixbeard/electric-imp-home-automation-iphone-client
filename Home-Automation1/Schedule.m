@@ -35,7 +35,7 @@
     hour = hour % 12;
     modifier = @"pm";
   }
-  return [NSString stringWithFormat:@"%d:%02d %@", hour, minute, modifier];
+  return [NSString stringWithFormat:@"%d:%02d%@", hour, minute, modifier];
 }
 
 @end
