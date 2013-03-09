@@ -10,7 +10,7 @@
 
 @implementation Outlet
 
--(id)initWithoutletId:(NSNumber *)outletId userOutletNumber:(NSNumber *)userOutletNumber userOutletName:(NSString *)userOutletName state:(NSNumber *)state overrideActive:(NSNumber *)overrideActive userId:(NSNumber *)userId {
+-(id)initWithOutletId:(NSNumber *)outletId userOutletNumber:(NSNumber *)userOutletNumber userOutletName:(NSString *)userOutletName state:(NSNumber *)state overrideActive:(NSNumber *)overrideActive userId:(NSNumber *)userId {
   
   self = [super init];
   if(self) {
@@ -27,7 +27,7 @@
 
 -(NSString *)humanReadableOutletName {
   if (self.userOutletName == (id)[NSNull null] || self.userOutletName.length == 0) {
-    return [NSString stringWithFormat:@"Outlet #%@", self.userOutletNumber];
+    return [NSString stringWithFormat:@"Outlet #%i", [self.userOutletNumber integerValue] + 1];
   }else { // Outlet name NOT null
     return self.userOutletName;
   }

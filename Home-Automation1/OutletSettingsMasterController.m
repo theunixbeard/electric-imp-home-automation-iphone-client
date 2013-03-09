@@ -26,7 +26,6 @@
 }
 
 - (void)viewDidLoad {
-  NSLog(@"ViewDidLoad OutletSettingsController");
   [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -46,7 +45,7 @@
                                                                 //NSLog(@"Response: %@", JSON);
                                                                 for (NSDictionary *jsonDict in JSON) {
                                                                   [self.masterOutletList addObject:[[Outlet alloc]
-                                                                                                    initWithoutletId:[jsonDict objectForKey:@"id"]
+                                                                                                    initWithOutletId:[jsonDict objectForKey:@"id"]
                                                                                                     userOutletNumber:[jsonDict objectForKey:@"user_outlet_number"]
                                                                                                     userOutletName:[jsonDict objectForKey:@"user_outlet_name"]
                                                                                                     state:[jsonDict objectForKey:@"state"]

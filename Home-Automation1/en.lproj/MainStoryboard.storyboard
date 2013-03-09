@@ -139,7 +139,7 @@
             </objects>
             <point key="canvasLocation" x="805" y="534"/>
         </scene>
-        <!--Outlet Settings Detail Controller - Make Dynamic-->
+        <!--Outlet Settings Detail Controller - Outlet Name-->
         <scene sceneID="Dze-qh-rSt">
             <objects>
                 <tableViewController id="ixq-cd-0et" customClass="OutletSettingsDetailController" sceneMemberID="viewController">
@@ -200,7 +200,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
-                                            <segue destination="MTN-Uw-0VJ" kind="push" id="st4-Cd-Iso"/>
+                                            <segue destination="MTN-Uw-0VJ" kind="push" identifier="RenameSegue" id="st4-Cd-Iso"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="ibh-Lq-2jN" style="IBUITableViewCellStyleDefault" id="hae-BU-5D2">
@@ -219,7 +219,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
-                                            <segue destination="JBs-sG-fr0" kind="push" id="jYv-Ut-nYR"/>
+                                            <segue destination="JBs-sG-fr0" kind="push" identifier="ScheduleSegue" id="jYv-Ut-nYR"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -230,7 +230,7 @@
                             <outlet property="delegate" destination="ixq-cd-0et" id="83G-PX-pKv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Make Dynamic" id="RtA-lP-35u"/>
+                    <navigationItem key="navigationItem" title="Outlet Name" id="RtA-lP-35u"/>
                     <connections>
                         <outlet property="outletScheduleSwitch" destination="bIw-2E-ZL8" id="D6f-93-77b"/>
                     </connections>
@@ -239,21 +239,28 @@
             </objects>
             <point key="canvasLocation" x="1280" y="843"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Outlet Schedule Controller - Set Schedule-->
         <scene sceneID="cMJ-2m-cTN">
             <objects>
-                <tableViewController id="JBs-sG-fr0" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4ka-aD-8wW">
+                <tableViewController id="JBs-sG-fr0" customClass="OutletScheduleController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="4ka-aD-8wW">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Qdk-n5-v6Y">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ScheduleCell" textLabel="yIY-0z-fU7" style="IBUITableViewCellStyleDefault" id="Qdk-n5-v6Y">
+                                <rect key="frame" x="0.0" y="46" width="320" height="46"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIY-0z-fU7">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </tableViewCell>
@@ -263,22 +270,64 @@
                             <outlet property="delegate" destination="JBs-sG-fr0" id="6eB-su-oVC"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="AV7-Vp-iRv"/>
+                    <navigationItem key="navigationItem" title="Set Schedule" id="AV7-Vp-iRv"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hsW-W8-olJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1762" y="1255"/>
         </scene>
-        <!--View Controller-->
+        <!--Outlet Rename Controller-->
         <scene sceneID="jfd-nB-uUz">
             <objects>
-                <viewController id="MTN-Uw-0VJ" sceneMemberID="viewController">
+                <viewController id="MTN-Uw-0VJ" customClass="OutletRenameController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PBm-p8-y0r">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Outlet Name" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EfR-tN-gWk">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="MTN-Uw-0VJ" id="RLB-Ll-fMJ"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rk8-UC-akK">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Rename Outlet">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="renameOutlet:" destination="MTN-Uw-0VJ" eventType="touchUpInside" id="29J-M6-JE1"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebV-Q8-gDp">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="rk8-UC-akK" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="878-O9-IgY"/>
+                            <constraint firstItem="EfR-tN-gWk" firstAttribute="leading" secondItem="PBm-p8-y0r" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Adr-TP-KEL"/>
+                            <constraint firstAttribute="trailing" secondItem="ebV-Q8-gDp" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="O9w-ED-dUq"/>
+                            <constraint firstItem="ebV-Q8-gDp" firstAttribute="top" secondItem="PBm-p8-y0r" secondAttribute="top" constant="20" symbolic="YES" type="default" id="TIZ-cY-AiX"/>
+                            <constraint firstItem="rk8-UC-akK" firstAttribute="leading" secondItem="PBm-p8-y0r" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Tnq-SK-ljp"/>
+                            <constraint firstItem="rk8-UC-akK" firstAttribute="top" secondItem="EfR-tN-gWk" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="py7-fU-S4x"/>
+                            <constraint firstItem="EfR-tN-gWk" firstAttribute="top" secondItem="ebV-Q8-gDp" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="rbr-Da-QIO"/>
+                            <constraint firstItem="ebV-Q8-gDp" firstAttribute="leading" secondItem="PBm-p8-y0r" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="tVm-Mr-75V"/>
+                            <constraint firstAttribute="trailing" secondItem="EfR-tN-gWk" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="vDQ-hg-0NF"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="838-e7-Iho"/>
+                    <connections>
+                        <outlet property="oldOutletLabel" destination="ebV-Q8-gDp" id="9CS-pO-60s"/>
+                        <outlet property="renameOutletTextField" destination="EfR-tN-gWk" id="NRH-t7-V3b"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zmh-Ok-rzJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -314,6 +363,17 @@
         </class>
         <class className="OutletPowerController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OutletPowerController.h"/>
+        </class>
+        <class className="OutletRenameController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OutletRenameController.h"/>
+            <relationships>
+                <relationship kind="action" name="renameOutlet:"/>
+                <relationship kind="outlet" name="oldOutletLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="renameOutletTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="OutletScheduleController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OutletScheduleController.h"/>
         </class>
         <class className="OutletSettingsDetailController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OutletSettingsDetailController.h"/>

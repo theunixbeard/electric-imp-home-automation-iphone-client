@@ -10,6 +10,9 @@
 		2F3749EB16EAB27C00F25AF1 /* OutletSettingsMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3749EA16EAB27C00F25AF1 /* OutletSettingsMasterController.m */; };
 		2F3749EE16EAB40800F25AF1 /* OutletSettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3749ED16EAB40800F25AF1 /* OutletSettingsCell.m */; };
 		2F3749F816EAEBED00F25AF1 /* OutletSettingsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3749F716EAEBED00F25AF1 /* OutletSettingsDetailController.m */; };
+		2F3749FB16EB0A1600F25AF1 /* OutletRenameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3749FA16EB0A1500F25AF1 /* OutletRenameController.m */; };
+		2F3749FE16EB141000F25AF1 /* OutletScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3749FD16EB141000F25AF1 /* OutletScheduleController.m */; };
+		2F374A0116EB243C00F25AF1 /* Schedule.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F374A0016EB243B00F25AF1 /* Schedule.m */; };
 		2FFD60B516E3FA3C000E3366 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFD60B416E3FA3C000E3366 /* UIKit.framework */; };
 		2FFD60B716E3FA3C000E3366 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFD60B616E3FA3C000E3366 /* Foundation.framework */; };
 		2FFD60B916E3FA3C000E3366 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFD60B816E3FA3C000E3366 /* CoreGraphics.framework */; };
@@ -37,6 +40,12 @@
 		2F3749ED16EAB40800F25AF1 /* OutletSettingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletSettingsCell.m; sourceTree = "<group>"; };
 		2F3749F616EAEBED00F25AF1 /* OutletSettingsDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutletSettingsDetailController.h; sourceTree = "<group>"; };
 		2F3749F716EAEBED00F25AF1 /* OutletSettingsDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletSettingsDetailController.m; sourceTree = "<group>"; };
+		2F3749F916EB0A1500F25AF1 /* OutletRenameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutletRenameController.h; sourceTree = "<group>"; };
+		2F3749FA16EB0A1500F25AF1 /* OutletRenameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletRenameController.m; sourceTree = "<group>"; };
+		2F3749FC16EB141000F25AF1 /* OutletScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutletScheduleController.h; sourceTree = "<group>"; };
+		2F3749FD16EB141000F25AF1 /* OutletScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletScheduleController.m; sourceTree = "<group>"; };
+		2F3749FF16EB243B00F25AF1 /* Schedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schedule.h; sourceTree = "<group>"; };
+		2F374A0016EB243B00F25AF1 /* Schedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Schedule.m; sourceTree = "<group>"; };
 		2FFD60B116E3FA3C000E3366 /* Home-Automation1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Home-Automation1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FFD60B416E3FA3C000E3366 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2FFD60B616E3FA3C000E3366 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -117,12 +126,18 @@
 				2FFD60CC16E3FA3C000E3366 /* MainStoryboard.storyboard */,
 				2FFD60E516E97870000E3366 /* Outlet.h */,
 				2FFD60E616E97870000E3366 /* Outlet.m */,
+				2F3749FF16EB243B00F25AF1 /* Schedule.h */,
+				2F374A0016EB243B00F25AF1 /* Schedule.m */,
 				2FFD60E216E433D4000E3366 /* OutletPowerController.h */,
 				2FFD60E316E433D4000E3366 /* OutletPowerController.m */,
 				2F3749E916EAB27C00F25AF1 /* OutletSettingsMasterController.h */,
 				2F3749EA16EAB27C00F25AF1 /* OutletSettingsMasterController.m */,
 				2F3749F616EAEBED00F25AF1 /* OutletSettingsDetailController.h */,
 				2F3749F716EAEBED00F25AF1 /* OutletSettingsDetailController.m */,
+				2F3749F916EB0A1500F25AF1 /* OutletRenameController.h */,
+				2F3749FA16EB0A1500F25AF1 /* OutletRenameController.m */,
+				2F3749FC16EB141000F25AF1 /* OutletScheduleController.h */,
+				2F3749FD16EB141000F25AF1 /* OutletScheduleController.m */,
 				2FFD60E816EA917D000E3366 /* TableViewSwitchCell.h */,
 				2FFD60E916EA917D000E3366 /* TableViewSwitchCell.m */,
 				2F3749EC16EAB40800F25AF1 /* OutletSettingsCell.h */,
@@ -247,6 +262,9 @@
 				2F3749EB16EAB27C00F25AF1 /* OutletSettingsMasterController.m in Sources */,
 				2F3749EE16EAB40800F25AF1 /* OutletSettingsCell.m in Sources */,
 				2F3749F816EAEBED00F25AF1 /* OutletSettingsDetailController.m in Sources */,
+				2F3749FB16EB0A1600F25AF1 /* OutletRenameController.m in Sources */,
+				2F3749FE16EB141000F25AF1 /* OutletScheduleController.m in Sources */,
+				2F374A0116EB243C00F25AF1 /* Schedule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

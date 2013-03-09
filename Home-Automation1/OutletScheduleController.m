@@ -1,21 +1,21 @@
 //
-//  OutletPowerController.m
+//  OutletScheduleController.m
 //  Home-Automation1
 //
-//  Created by Ben Gelsey on 3/3/13.
+//  Created by Ben Gelsey on 3/8/13.
 //  Copyright (c) 2013 Self. All rights reserved.
 //
 
-#import "OutletPowerController.h"
+#import "OutletScheduleController.h"
 #import "AFNetworking.h"
 #import "Outlet.h"
-#import "TableViewSwitchCell.h"
+#import "Schedule.h"
 
-@interface OutletPowerController ()
+@interface OutletScheduleController ()
 
 @end
 
-@implementation OutletPowerController
+@implementation OutletScheduleController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -26,35 +26,41 @@
     return self;
 }
 
-- (void)viewDidLoad{
+- (void)viewDidLoad {
   [super viewDidLoad];
 
   // Uncomment the following line to preserve selection between presentations.
   // self.clearsSelectionOnViewWillAppear = NO;
  
   // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-  //self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  self.navigationItem.rightBarButtonItem = self.editButtonItem;
   
-  self.masterOutletList = [[NSMutableArray alloc] init];
+  self.masterScheduleList = [[NSMutableArray alloc] init];
+  // Add 7 arrays, 1 for each day of the week
+  for (int i = 0; i < 7; ++i) {
+    [self.masterScheduleList addObject:[[NSMutableArray alloc] init]];
+  }
   
-  NSURL *url = [NSURL URLWithString:@"http://localhost:9292/outlets.json"];
+  NSString *url_string = [NSString stringWithFormat:@"http://localhost:9292/outlets/%@/schedules.json", self.outlet.outletId];
+  NSURL *url = [NSURL URLWithString:url_string];
   NSURLRequest *request = [NSURLRequest requestWithURL:url];
   AFJSONRequestOperation *operation;
   operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                NSLog(@"ViewDidLoad OutletPowerController Success");
-                                                                //NSLog(@"Response: %@", JSON);
+                                                                NSLog(@"ViewDidLoad OutletScheduleController Success");
+                                                                NSLog(@"Response: %@", JSON);
                                                                 for (NSDictionary *jsonDict in JSON) {
-                                                                  [self.masterOutletList addObject:[[Outlet alloc]
-                                                                                                    initWithOutletId:[jsonDict objectForKey:@"id"]
-                                                                                                    userOutletNumber:[jsonDict objectForKey:@"user_outlet_number"]
-                                                                                                    userOutletName:[jsonDict objectForKey:@"user_outlet_name"]
-                                                                                                    state:[jsonDict objectForKey:@"state"]
-                                                                                                    overrideActive:[jsonDict objectForKey:@"override_active"]
-                                                                                                    userId:[jsonDict objectForKey:@"user_id"]]];
+                                                                  NSUInteger day_key = [[jsonDict objectForKey:@"day"] integerValue];
+                                                                  [[self.masterScheduleList objectAtIndex:day_key] addObject:[[Schedule alloc]
+                                                                                                  initWithScheduleId:[jsonDict objectForKey:@"id"]
+                                                                                                  outletId:[jsonDict objectForKey:@"outlet_id"]
+                                                                                                  userId:[jsonDict objectForKey:@"user_id"]
+                                                                                                  day:[jsonDict objectForKey:@"day"]
+                                                                                                  time:[jsonDict objectForKey:@"time"]
+                                                                                                  state:[jsonDict objectForKey:@"state"]]];
                                                                 }
                                                                 [self.tableView reloadData];
-                                            
+                                                                
                                                               } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                 NSLog(@"Received an HTTP %d", response.statusCode);
                                                                 NSLog(@"The error was: %@", error);
@@ -62,47 +68,70 @@
   [operation start];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     // Return the number of sections.
-    return 1;
+    return 7;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  // Return the number of rows in the section.
-  return self.masterOutletList.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-  static NSString *CellIdentifier = @"OutletPowerCell";
-  
-
-  TableViewSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-  Outlet *outlet = [self.masterOutletList objectAtIndex:indexPath.row];
-  [[cell cellLabel] setText:[outlet humanReadableOutletName]];
-  if ([outlet.state boolValue]) {
-    cell.cellSwitch.on = YES;
-  } else {
-    cell.cellSwitch.on = NO;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+  // The header for the section is the region name -- get this from the region at the section index.
+  switch (section){
+    case 0:
+      return @"Sunday";
+    case 1:
+      return @"Monday";
+    case 2:
+      return @"Tuesday";
+    case 3:
+      return @"Wednesday";
+    case 4:
+      return @"Thursday";
+    case 5:
+      return @"Friday";
+    case 6:
+      return @"Saturday";
   }
+  return @"INVALID SECTION NUMBER";
+}
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+  NSMutableArray *dayArray = (NSMutableArray *) [self.masterScheduleList objectAtIndex:section];
+  return dayArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  //indexPath has BOTH section and row!
+  static NSString *CellIdentifier = @"ScheduleCell";
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+  // Configure the cell...
+  [[cell textLabel] setText:[[[self.masterScheduleList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] humanReadableScheduleTime]];
   return cell;
 }
 
-/*
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+  
+}
 
 /*
 // Override to support editing the table view.
@@ -145,16 +174,6 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-}
-
--(void)onTableViewSwitchCellSwitchToggle:(id)sender cell:(TableViewSwitchCell *)cell {
-  
-  NSIndexPath* path = [self.tableView indexPathForCell:cell];
-  Outlet* toggledOutlet = [self.masterOutletList objectAtIndex:path.row];
-  
-  UISwitch *switch_sender = (UISwitch *) sender;
-  NSLog([NSString stringWithFormat:@"Outlet #%@ Power Switch Toggled to: %@", toggledOutlet.userOutletNumber, switch_sender.on ? @"YES" : @"NO"]);
-  // Actually send this to back end here (Using outletId NOT userOutletNumber...!)
 }
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "OutletSettingsDetailController.h"
+#import "OutletRenameController.h"
+#import "OutletScheduleController.h"
 
 @interface OutletSettingsDetailController ()
 
@@ -52,6 +54,17 @@
   UISwitch *switch_sender = (UISwitch *) sender;
   NSLog([NSString stringWithFormat:@"Outlet #%@ Schedule Enable Switch Toggled to: %@", self.outlet.userOutletNumber,switch_sender.on ? @"YES" : @"NO"]);
   // Actually send this to back end here
-
 }
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+  
+  if([segue.identifier isEqualToString:@"RenameSegue"]){
+    OutletRenameController *controller = [segue destinationViewController];
+    controller.outlet = self.outlet;
+  } else if ([segue.identifier isEqualToString:@"ScheduleSegue"]){
+    OutletScheduleController *controller = [segue destinationViewController];
+    controller.outlet = self.outlet;
+  }
+}
+
 @end

@@ -18,7 +18,7 @@
 @property (copy, nonatomic) NSNumber *overrideActive;
 @property (copy, nonatomic) NSNumber *userId;
 
--(id)initWithoutletId:(NSNumber *)outletId userOutletNumber:(NSNumber *)userOutletNumber userOutletName:(NSString *)userOutletName state:(NSNumber *)state overrideActive:(NSNumber *)overrideActive userId:(NSNumber *)userId;
+-(id)initWithOutletId:(NSNumber *)outletId userOutletNumber:(NSNumber *)userOutletNumber userOutletName:(NSString *)userOutletName state:(NSNumber *)state overrideActive:(NSNumber *)overrideActive userId:(NSNumber *)userId;
 
 -(NSString *)humanReadableOutletName;
 
