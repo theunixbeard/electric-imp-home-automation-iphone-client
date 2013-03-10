@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "Outlet.h"
 #import "Schedule.h"
+#import "AddScheduleController.h"
 
 @interface OutletScheduleController ()
 
@@ -33,8 +34,9 @@
   // self.clearsSelectionOnViewWillAppear = NO;
  
   // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+  /* editing #1
   self.navigationItem.rightBarButtonItem = self.editButtonItem;
-  
+   */
   self.masterScheduleList = [[NSMutableArray alloc] init];
   // Add 7 arrays, 1 for each day of the week
   for (int i = 0; i < 7; ++i) {
@@ -48,7 +50,7 @@
   operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                 NSLog(@"ViewDidLoad OutletScheduleController Success");
-                                                                NSLog(@"Response: %@", JSON);
+                                                                //NSLog(@"Response: %@", JSON);
                                                                 for (NSDictionary *jsonDict in JSON) {
                                                                   NSUInteger day_key = [[jsonDict objectForKey:@"day"] integerValue];
                                                                   [[self.masterScheduleList objectAtIndex:day_key] addObject:[[Schedule alloc]
@@ -107,9 +109,11 @@
 {
     // Return the number of rows in the section.
   NSMutableArray *dayArray = (NSMutableArray *) [self.masterScheduleList objectAtIndex:section];
-  if (self.tableView.editing) {
+/*  editing #2
+ if (self.tableView.editing) {
     return dayArray.count + 1;
   }
+ */
   return dayArray.count;
 }
 
@@ -122,8 +126,10 @@
   // Configure the cell...
   NSMutableArray *dayArray = [self.masterScheduleList objectAtIndex:indexPath.section];
   if (indexPath.row == [dayArray count]) {
+    /* editing #3
     [[cell textLabel] setText: @"Add New Time"];
     [[cell detailTextLabel] setText:@""];
+     */
   }else {
     Schedule *schedule = [dayArray objectAtIndex:indexPath.row];
     [[cell textLabel] setText:[schedule humanReadableScheduleTime]];
@@ -133,9 +139,11 @@
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+  /* editing #4
   if (indexPath.row == [[self.masterScheduleList objectAtIndex: indexPath.section] count]) {
     return UITableViewCellEditingStyleInsert;
   }
+  */
   return UITableViewCellEditingStyleDelete;
 }
 
@@ -144,46 +152,47 @@
 
   NSMutableArray* paths = [[NSMutableArray alloc] init];
   for (int i = 0; i < 7; ++i) {
+    /* editing #5
     NSInteger rowCount = [[self.masterScheduleList objectAtIndex:i] count];
+    */
+    NSInteger rowCount = [[self.masterScheduleList objectAtIndex:i] count] - 1;
     NSIndexPath *path = [NSIndexPath indexPathForRow:rowCount inSection:i];
     [paths addObject:path];
   }
+  /* editing #6
   if (editing) {
     [self.tableView insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationBottom];
   } else {
     [self.tableView deleteRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationBottom];
   }
+   */
 }
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
+      // Delete the row from the data source
+      // Send to backend as well here??????????????
+      [[self.masterScheduleList objectAtIndex:indexPath.section] removeObjectAtIndex:indexPath.row];
+      [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    /* editing #7
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+      NSNumber *dummy = [NSNumber numberWithInt: 5];
+      [[self.masterScheduleList objectAtIndex:indexPath.section] addObject:[[Schedule alloc]
+                                                                            initWithScheduleId:dummy
+                                                                            outletId:dummy
+                                                                            userId:dummy
+                                                                            day:dummy
+                                                                            time:dummy
+                                                                            state:dummy]];
+      [tableView insertRowsAtIndexPaths:(NSArray *)@[indexPath] withRowAnimation:(UITableViewRowAnimation)UITableViewRowAnimationAutomatic];
     }   
+    */
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
@@ -196,6 +205,40 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+// Segue to addScheduleController
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+  if ([[segue identifier] isEqualToString:@"AddScheduleSegue"]) {
+    AddScheduleController *controller = [segue destinationViewController];
+    controller.outlet = self.outlet;
+  }
+}
+
+// Modal done/cancel segues
+- (IBAction)done:(UIStoryboardSegue *)segue {
+  if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
+    AddScheduleController *addScheduleController = [segue sourceViewController];
+    NSLog(@"%@", addScheduleController.schedule.time);
+    NSMutableArray *dayArray = [self.masterScheduleList objectAtIndex:[addScheduleController.schedule.day intValue]];
+    [dayArray addObject:addScheduleController.schedule];
+    [dayArray sortUsingComparator:^NSComparisonResult(id a, id b) {
+      NSNumber *first = [(Schedule *)a time];
+      NSNumber *second = [(Schedule *)b time];
+      return [first compare:second];
+    }];
+    //SEND TO BACKEND TO PERSIST DATA!!!!
+    [[self tableView] reloadData];
+    [self dismissViewControllerAnimated:YES completion:NULL];
+  }
+}
+
+- (IBAction)cancel:(UIStoryboardSegue *)segue
+{
+  if([[segue identifier] isEqualToString:@"CancelInput"]) {
+    [self dismissViewControllerAnimated:YES completion:NULL];
+  }
 }
 
 @end

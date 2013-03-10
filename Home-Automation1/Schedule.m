@@ -38,4 +38,17 @@
   return [NSString stringWithFormat:@"%d:%02d%@", hour, minute, modifier];
 }
 
++(NSNumber *)machineReadableScheduleTime:(NSString *)humanTime {
+  NSArray *timeComponents = [humanTime componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@": "]];
+  int timeTotal = [[timeComponents objectAtIndex:0] intValue] * 4;
+  timeTotal += [[timeComponents objectAtIndex:1] intValue] / 15;
+  if ([[timeComponents objectAtIndex:0] isEqualToString:@"12"]) {
+    timeTotal -= 48;
+  }
+  if ([[timeComponents objectAtIndex:2] isEqualToString:@"PM"]) {
+    timeTotal += 48;
+  }
+  return [NSNumber numberWithInt:timeTotal];
+}
+
 @end

@@ -275,11 +275,123 @@
                             <outlet property="delegate" destination="JBs-sG-fr0" id="6eB-su-oVC"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Set Schedule" id="AV7-Vp-iRv"/>
+                    <navigationItem key="navigationItem" title="Set Schedule" id="AV7-Vp-iRv">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="wCb-HS-Rft">
+                            <connections>
+                                <segue destination="oP0-rX-P3V" kind="modal" identifier="AddScheduleSegue" id="QfA-4Q-HeI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hsW-W8-olJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1762" y="1255"/>
+        </scene>
+        <!--Add Schedule Controller - Set Schedule-->
+        <scene sceneID="33E-Op-C4a">
+            <objects>
+                <viewController id="oP0-rX-P3V" customClass="AddScheduleController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bLI-VQ-hNt">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="W1c-1f-jCk">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="df3-sQ-ySQ"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="384231568.91266298">
+                                    <!--2013-03-06 02:59:28 +0000-->
+                                </date>
+                                <timeZone key="timeZone" name="America/Los_Angeles">
+                                    <mutableData key="data">
+VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
+y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
+5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
+8n/BkPNvwKD0X6OQ9U+ioPY/hZD3L4Sg+CiiEPkPZqD6CIQQ+viDIPvoZhD82GUg/chIEP64RyD/qCoQ
+AJgpIAGIDBACeAsgA3EokARhJ6AFUQqQBkEJoAcw7JAHjUOgCRDOkAmtvyAK8LCQC+CvoAzZzRANwJGg
+DrmvEA+priAQmZEQEYmQIBJ5cxATaXIgFFlVEBVJVCAWOTcQFyk2IBgiU5AZCRggGgI1kBryNKAb4heQ
+HNIWoB3B+ZAesfigH6HbkCB2KyAhgb2QIlYNICNq2hAkNe8gJUq8ECYV0SAnKp4QJ/7toCkKgBAp3s+g
+KupiECu+saAs036QLZ6ToC6zYJAvfnWgMJNCkDFnkiAycySQM0d0IDRTBpA1J1YgNjLokDcHOCA4HAUQ
+OOcaIDn75xA6xvwgO9vJEDywGKA9u6sQPo/6oD+bjRBAb9ygQYSpkEJPvqBDZIuQRC+goEVEbZBF89Mg
+Ry2KEEfTtSBJDWwQSbOXIErtThBLnLOgTNZqkE18laBOtkyQT1x3oFCWLpBRPFmgUnYQkFMcO6BUVfKQ
+VPwdoFY11JBW5TogWB7xEFjFHCBZ/tMQWqT+IFvetRBchOAgXb6XEF5kwiBfnnkQYE3eoGGHlZBiLcCg
+Y2d3kGQNoqBlR1mQZe2EoGcnO5BnzWagaQcdkGmtSKBq5v+Qa5ZlIGzQHBBtdkcgbq/+EG9WKSBwj+AQ
+cTYLIHJvwhBzFe0gdE+kEHT/CaB2OMCQdt7roHgYopB4vs2gefiEkHqer6B72GaQfH6RoH24SJB+XnOg
+f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
+</mutableData>
+                                </timeZone>
+                            </datePicker>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Mz-XI-eSX">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="FzE-jp-yNH"/>
+                                    <constraint firstAttribute="width" constant="160" id="c3N-bx-KbT"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="oP0-rX-P3V" id="Ndd-XH-yeM"/>
+                                    <outlet property="delegate" destination="oP0-rX-P3V" id="wz2-hD-J8l"/>
+                                </connections>
+                            </pickerView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W2c-6g-Sl5">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="77" id="kFn-dD-XlG"/>
+                                </constraints>
+                            </switch>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acj-9z-KW1">
+                                <items>
+                                    <navigationItem title="Add To Schedule" id="Pwl-4C-1uv">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bxa-Yo-imc">
+                                            <connections>
+                                                <segue destination="ETY-og-gV5" kind="unwind" unwindAction="cancel:" id="UJi-sG-LGe"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="TUi-ql-kav">
+                                            <connections>
+                                                <segue destination="ETY-og-gV5" kind="unwind" identifier="ReturnInput" unwindAction="done:" id="iZA-sz-VGn"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JD0-bs-tIw">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="acj-9z-KW1" firstAttribute="leading" secondItem="bLI-VQ-hNt" secondAttribute="leading" type="default" id="0Dd-Td-Ud9"/>
+                            <constraint firstItem="JD0-bs-tIw" firstAttribute="centerY" secondItem="W2c-6g-Sl5" secondAttribute="centerY" type="default" id="1Li-AC-7hc"/>
+                            <constraint firstItem="W1c-1f-jCk" firstAttribute="top" secondItem="9Mz-XI-eSX" secondAttribute="top" type="default" id="5E2-AW-YdU"/>
+                            <constraint firstItem="W1c-1f-jCk" firstAttribute="top" secondItem="W2c-6g-Sl5" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="9Gu-Ed-B5Q"/>
+                            <constraint firstItem="W1c-1f-jCk" firstAttribute="trailing" secondItem="bLI-VQ-hNt" secondAttribute="trailing" type="default" id="QW0-9h-s19"/>
+                            <constraint firstItem="W2c-6g-Sl5" firstAttribute="top" secondItem="bLI-VQ-hNt" secondAttribute="top" constant="54" id="UuP-go-9O1"/>
+                            <constraint firstItem="acj-9z-KW1" firstAttribute="trailing" secondItem="bLI-VQ-hNt" secondAttribute="trailing" type="default" id="X5n-jz-6uT"/>
+                            <constraint firstAttribute="trailing" secondItem="W2c-6g-Sl5" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="XPY-I9-p6r"/>
+                            <constraint firstItem="W1c-1f-jCk" firstAttribute="bottom" secondItem="9Mz-XI-eSX" secondAttribute="bottom" type="default" id="iLt-HG-XWj"/>
+                            <constraint firstItem="9Mz-XI-eSX" firstAttribute="leading" secondItem="bLI-VQ-hNt" secondAttribute="leading" type="default" id="ja3-JG-NIa"/>
+                            <constraint firstItem="acj-9z-KW1" firstAttribute="top" secondItem="bLI-VQ-hNt" secondAttribute="top" type="default" id="jrX-cj-FBU"/>
+                            <constraint firstItem="W2c-6g-Sl5" firstAttribute="leading" relation="lessThanOrEqual" secondItem="JD0-bs-tIw" secondAttribute="trailing" constant="8" symbolic="YES" type="user" id="l13-3h-a5b"/>
+                            <constraint firstItem="JD0-bs-tIw" firstAttribute="leading" relation="lessThanOrEqual" secondItem="bLI-VQ-hNt" secondAttribute="leading" constant="20" symbolic="YES" type="user" id="uvR-Ee-gqr"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Set Schedule" id="E3V-LY-jsF">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="UGh-Bf-214"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addScheduleLabel" destination="JD0-bs-tIw" id="Gte-u9-81X"/>
+                        <outlet property="scheduleDayPicker" destination="9Mz-XI-eSX" id="gDc-Fh-72l"/>
+                        <outlet property="scheduleSwitch" destination="W2c-6g-Sl5" id="H3W-zJ-GXa"/>
+                        <outlet property="scheduleTimePicker" destination="W1c-1f-jCk" id="7bV-bv-FGn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MsV-lA-EBL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ETY-og-gV5" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2239" y="1255"/>
         </scene>
         <!--Outlet Rename Controller-->
         <scene sceneID="jfd-nB-uUz">
@@ -363,6 +475,15 @@
         <image name="second.png" width="30" height="30"/>
     </resources>
     <classes>
+        <class className="AddScheduleController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddScheduleController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addScheduleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scheduleDayPicker" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="scheduleSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="scheduleTimePicker" candidateClass="UIDatePicker"/>
+            </relationships>
+        </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
         </class>
@@ -379,6 +500,10 @@
         </class>
         <class className="OutletScheduleController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OutletScheduleController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="done:" candidateClass="UIStoryboardSegue"/>
+            </relationships>
         </class>
         <class className="OutletSettingsDetailController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OutletSettingsDetailController.h"/>
@@ -398,6 +523,9 @@
                 <relationship kind="outlet" name="cellLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="cellSwitch" candidateClass="UISwitch"/>
             </relationships>
+        </class>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

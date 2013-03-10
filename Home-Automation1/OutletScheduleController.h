@@ -14,4 +14,7 @@
 @property (nonatomic, strong) NSMutableArray *masterScheduleList; // A 2D array, w/ 7 rows, 1 for each day of the week
 @property (strong, nonatomic) Outlet *outlet;
 
+- (IBAction)done:(UIStoryboardSegue *)segue;
+- (IBAction)cancel:(UIStoryboardSegue *)segue;
+
 @end
