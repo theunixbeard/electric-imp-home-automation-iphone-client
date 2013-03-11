@@ -34,9 +34,6 @@
   // self.clearsSelectionOnViewWillAppear = NO;
  
   // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-  /* editing #1
-  self.navigationItem.rightBarButtonItem = self.editButtonItem;
-   */
   self.masterScheduleList = [[NSMutableArray alloc] init];
   // Add 7 arrays, 1 for each day of the week
   for (int i = 0; i < 7; ++i) {
@@ -109,11 +106,6 @@
 {
     // Return the number of rows in the section.
   NSMutableArray *dayArray = (NSMutableArray *) [self.masterScheduleList objectAtIndex:section];
-/*  editing #2
- if (self.tableView.editing) {
-    return dayArray.count + 1;
-  }
- */
   return dayArray.count;
 }
 
@@ -126,10 +118,6 @@
   // Configure the cell...
   NSMutableArray *dayArray = [self.masterScheduleList objectAtIndex:indexPath.section];
   if (indexPath.row == [dayArray count]) {
-    /* editing #3
-    [[cell textLabel] setText: @"Add New Time"];
-    [[cell detailTextLabel] setText:@""];
-     */
   }else {
     Schedule *schedule = [dayArray objectAtIndex:indexPath.row];
     [[cell textLabel] setText:[schedule humanReadableScheduleTime]];
@@ -139,11 +127,6 @@
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-  /* editing #4
-  if (indexPath.row == [[self.masterScheduleList objectAtIndex: indexPath.section] count]) {
-    return UITableViewCellEditingStyleInsert;
-  }
-  */
   return UITableViewCellEditingStyleDelete;
 }
 
@@ -152,20 +135,10 @@
 
   NSMutableArray* paths = [[NSMutableArray alloc] init];
   for (int i = 0; i < 7; ++i) {
-    /* editing #5
-    NSInteger rowCount = [[self.masterScheduleList objectAtIndex:i] count];
-    */
     NSInteger rowCount = [[self.masterScheduleList objectAtIndex:i] count] - 1;
     NSIndexPath *path = [NSIndexPath indexPathForRow:rowCount inSection:i];
     [paths addObject:path];
   }
-  /* editing #6
-  if (editing) {
-    [self.tableView insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationBottom];
-  } else {
-    [self.tableView deleteRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationBottom];
-  }
-   */
 }
 
 
@@ -175,36 +148,23 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
       // Delete the row from the data source
       // Send to backend as well here??????????????
+      NSNumber *scheduleId = [[[self.masterScheduleList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] scheduleId];
+      NSURL *urlBase = [NSURL URLWithString:@"http://localhost:9292/"];
+      NSString *urlRelative = [NSString stringWithFormat:@"/outlets/%@/schedules/%@/delete", self.outlet.outletId, scheduleId];
+      
+      AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:urlBase];
+      NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                              nil];
+      [httpClient postPath:urlRelative parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSLog(@"Request Successful, response '%@'", responseStr);
+      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
+      }];
+      NSLog(@"Deleted a row with id #%@", [[[self.masterScheduleList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] scheduleId]);
       [[self.masterScheduleList objectAtIndex:indexPath.section] removeObjectAtIndex:indexPath.row];
       [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
-    /* editing #7
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-      NSNumber *dummy = [NSNumber numberWithInt: 5];
-      [[self.masterScheduleList objectAtIndex:indexPath.section] addObject:[[Schedule alloc]
-                                                                            initWithScheduleId:dummy
-                                                                            outletId:dummy
-                                                                            userId:dummy
-                                                                            day:dummy
-                                                                            time:dummy
-                                                                            state:dummy]];
-      [tableView insertRowsAtIndexPaths:(NSArray *)@[indexPath] withRowAnimation:(UITableViewRowAnimation)UITableViewRowAnimationAutomatic];
-    }   
-    */
-}
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
 }
 
 // Segue to addScheduleController
@@ -222,13 +182,44 @@
     AddScheduleController *addScheduleController = [segue sourceViewController];
     NSLog(@"%@", addScheduleController.schedule.time);
     NSMutableArray *dayArray = [self.masterScheduleList objectAtIndex:[addScheduleController.schedule.day intValue]];
-    [dayArray addObject:addScheduleController.schedule];
-    [dayArray sortUsingComparator:^NSComparisonResult(id a, id b) {
-      NSNumber *first = [(Schedule *)a time];
-      NSNumber *second = [(Schedule *)b time];
-      return [first compare:second];
+    NSUInteger alreadyExists = [dayArray indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
+      Schedule *schedule = (Schedule *)obj;
+      if([schedule.time isEqualToNumber: addScheduleController.schedule.time]){
+        NSLog(@"Found same time");
+        return YES;
+      }
+      return NO;
     }];
-    //SEND TO BACKEND TO PERSIST DATA!!!!
+    NSLog(@"already exists: %i", alreadyExists);
+    if(alreadyExists == NSNotFound) {
+      [dayArray addObject:addScheduleController.schedule];
+      [dayArray sortUsingComparator:^NSComparisonResult(id a, id b) {
+        NSNumber *first = [(Schedule *)a time];
+        NSNumber *second = [(Schedule *)b time];
+        return [first compare:second];
+      }];
+      //SEND TO BACKEND TO PERSIST DATA!!!!
+      NSURL *urlBase = [NSURL URLWithString:@"http://localhost:9292/"];
+      NSString *urlRelative = [NSString stringWithFormat:@"/outlets/%@/schedules/new", self.outlet.outletId];
+      
+      AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:urlBase];
+      NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                              addScheduleController.schedule.state, @"state",
+                              addScheduleController.schedule.time, @"time",
+                              addScheduleController.schedule.day, @"day",
+                              addScheduleController.schedule.outletId, @"outlet_id",
+                              addScheduleController.schedule.userId, @"user_id",
+                              nil];
+      [httpClient postPath:urlRelative parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSLog(@"Request Successful, response '%@'", responseStr);
+        if(![responseStr isEqualToString:@"bad schedule"]) {
+          addScheduleController.schedule.scheduleId = [NSNumber numberWithInt:[responseStr intValue]];
+        }
+      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
+      }];
+    }
     [[self tableView] reloadData];
     [self dismissViewControllerAnimated:YES completion:NULL];
   }

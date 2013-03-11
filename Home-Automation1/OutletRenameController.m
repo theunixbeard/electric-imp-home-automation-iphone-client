@@ -7,11 +7,9 @@
 //
 
 #import "OutletRenameController.h"
+#import "AFNetworking.h"
 
 @interface OutletRenameController ()
-@property (weak, nonatomic) IBOutlet UILabel *oldOutletLabel;
-@property (weak, nonatomic) IBOutlet UITextField *renameOutletTextField;
-- (IBAction)renameOutlet:(id)sender;
 
 @end
 
@@ -43,8 +41,25 @@
 
 
 - (IBAction)renameOutlet:(id)sender {
-  
   NSLog(@"Outlet #%@ Renamed to: %@", self.outlet.userOutletNumber, self.renameOutletTextField.text);
+  // Send to back end and update model
+  NSURL *urlBase = [NSURL URLWithString:@"http://localhost:9292/"];
+  NSString *urlRelative = [NSString stringWithFormat:@"/outlets/%@/rename", self.outlet.outletId];
+  
+  AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:urlBase];
+  NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                          self.renameOutletTextField.text, @"name",
+                          nil];
+  [httpClient postPath:urlRelative parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+    NSLog(@"Request Successful, response '%@'", responseStr);
+    if(![responseStr isEqualToString:@"bad name"]) {
+      self.outlet.userOutletName = responseStr; 
+    }
+  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
+  }];
+  
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {

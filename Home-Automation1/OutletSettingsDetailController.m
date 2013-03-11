@@ -9,6 +9,7 @@
 #import "OutletSettingsDetailController.h"
 #import "OutletRenameController.h"
 #import "OutletScheduleController.h"
+#import "AFNetworking.h"
 
 @interface OutletSettingsDetailController ()
 
@@ -36,12 +37,17 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
   
   self.navigationItem.title = [self.outlet humanReadableOutletName];
-  if ([self.outlet.state boolValue]) {
-    self.outletScheduleSwitch.on = YES;
-  } else {
+  if ([self.outlet.overrideActive boolValue]) {
     self.outletScheduleSwitch.on = NO;
+  } else {
+    self.outletScheduleSwitch.on = YES;
   }
   
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,8 +58,22 @@
 
 - (IBAction)outletScheduleValueChanged:(id)sender {
   UISwitch *switch_sender = (UISwitch *) sender;
-  NSLog([NSString stringWithFormat:@"Outlet #%@ Schedule Enable Switch Toggled to: %@", self.outlet.userOutletNumber,switch_sender.on ? @"YES" : @"NO"]);
-  // Actually send this to back end here
+  // Actually send this to back end here and update the model
+  NSNumber *switchValue = switch_sender.on ? [NSNumber numberWithInt:1] : [NSNumber numberWithInt:0];
+  self.outlet.overrideActive = switch_sender.on ? [NSNumber numberWithInt:0] : [NSNumber numberWithInt:1];
+  NSURL *urlBase = [NSURL URLWithString:@"http://localhost:9292/"];
+  NSString *urlRelative = [NSString stringWithFormat:@"/outlets/%@/schedule-toggle", self.outlet.outletId];
+  
+  AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:urlBase];
+  NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                          switchValue, @"value",
+                          nil];
+  [httpClient postPath:urlRelative parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+    NSLog(@"Request Successful, response '%@'", responseStr);
+  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
+  }];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -64,6 +84,15 @@
   } else if ([segue.identifier isEqualToString:@"ScheduleSegue"]){
     OutletScheduleController *controller = [segue destinationViewController];
     controller.outlet = self.outlet;
+  }
+}
+
+- (IBAction)unwindFromRename:(UIStoryboardSegue *)segue {
+  if([[segue identifier] isEqualToString:@"unwindFromRename"]) {
+    OutletRenameController *controller = [segue sourceViewController];
+    if (![controller.renameOutletTextField.text isEqualToString:@""]) {
+      self.navigationItem.title = controller.renameOutletTextField.text;
+    }
   }
 }
 

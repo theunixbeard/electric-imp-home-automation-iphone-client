@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GlobalAppDataSingleton.h"
 
 @interface OutletSettingsMasterController : UITableViewController
 
 @property (nonatomic, strong) NSMutableArray *masterOutletList;
+@property (nonatomic, strong) GlobalAppDataSingleton *appData;
 
 @end

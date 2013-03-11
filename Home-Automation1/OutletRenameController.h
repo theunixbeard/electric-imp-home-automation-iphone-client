@@ -13,4 +13,7 @@
 
 @property (strong, nonatomic) Outlet *outlet;
 
+@property (weak, nonatomic) IBOutlet UILabel *oldOutletLabel;
+@property (weak, nonatomic) IBOutlet UITextField *renameOutletTextField;
+- (IBAction)renameOutlet:(id)sender;
 @end

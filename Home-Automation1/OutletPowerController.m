@@ -26,40 +26,26 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  [self.tableView reloadData];
+}
+
 - (void)viewDidLoad{
   [super viewDidLoad];
-
+  
+  //Tab bar delegate setup
+  [self tabBarController].delegate = self;
+  
   // Uncomment the following line to preserve selection between presentations.
   // self.clearsSelectionOnViewWillAppear = NO;
  
   // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
   //self.navigationItem.rightBarButtonItem = self.editButtonItem;
   
-  self.masterOutletList = [[NSMutableArray alloc] init];
-  
-  NSURL *url = [NSURL URLWithString:@"http://localhost:9292/outlets.json"];
-  NSURLRequest *request = [NSURLRequest requestWithURL:url];
-  AFJSONRequestOperation *operation;
-  operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                NSLog(@"ViewDidLoad OutletPowerController Success");
-                                                                //NSLog(@"Response: %@", JSON);
-                                                                for (NSDictionary *jsonDict in JSON) {
-                                                                  [self.masterOutletList addObject:[[Outlet alloc]
-                                                                                                    initWithOutletId:[jsonDict objectForKey:@"id"]
-                                                                                                    userOutletNumber:[jsonDict objectForKey:@"user_outlet_number"]
-                                                                                                    userOutletName:[jsonDict objectForKey:@"user_outlet_name"]
-                                                                                                    state:[jsonDict objectForKey:@"state"]
-                                                                                                    overrideActive:[jsonDict objectForKey:@"override_active"]
-                                                                                                    userId:[jsonDict objectForKey:@"user_id"]]];
-                                                                }
-                                                                [self.tableView reloadData];
-                                            
-                                                              } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                NSLog(@"Received an HTTP %d", response.statusCode);
-                                                                NSLog(@"The error was: %@", error);
-                                                              }];
-  [operation start];
+  self.appData = [GlobalAppDataSingleton globalAppDataSingleton];
+  [self.appData initMasterOutletListFromBackendAndUpdateTable:self.tableView];
+  self.masterOutletList = self.appData.masterOutletList;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -153,8 +139,22 @@
   Outlet* toggledOutlet = [self.masterOutletList objectAtIndex:path.row];
   
   UISwitch *switch_sender = (UISwitch *) sender;
-  NSLog([NSString stringWithFormat:@"Outlet #%@ Power Switch Toggled to: %@", toggledOutlet.userOutletNumber, switch_sender.on ? @"YES" : @"NO"]);
+  NSNumber *value = switch_sender.on ? [NSNumber numberWithInt:1] : [NSNumber numberWithInt:0];
+  NSLog(@"Outlet #%@ Power Switch Toggled to: %@", toggledOutlet.outletId, value);
   // Actually send this to back end here (Using outletId NOT userOutletNumber...!)
+  NSURL *urlBase = [NSURL URLWithString:@"http://localhost:9292/"];
+  NSString *urlRelative = [NSString stringWithFormat:@"/outlets/%@/power-toggle", toggledOutlet.outletId];
+  
+  AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:urlBase];
+  NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                          value, @"value",
+                          nil];
+  [httpClient postPath:urlRelative parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+    NSLog(@"Request Successful, response '%@'", responseStr);
+  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
+  }];
 }
 
 @end

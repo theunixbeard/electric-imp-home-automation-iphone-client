@@ -14,6 +14,7 @@
 		2F3749FE16EB141000F25AF1 /* OutletScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3749FD16EB141000F25AF1 /* OutletScheduleController.m */; };
 		2F374A0116EB243C00F25AF1 /* Schedule.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F374A0016EB243B00F25AF1 /* Schedule.m */; };
 		2F374A0416EC32AD00F25AF1 /* AddScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F374A0316EC32AC00F25AF1 /* AddScheduleController.m */; };
+		2F374A0A16ED76FF00F25AF1 /* GlobalAppDataSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F374A0916ED76FF00F25AF1 /* GlobalAppDataSingleton.m */; };
 		2FFD60B516E3FA3C000E3366 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFD60B416E3FA3C000E3366 /* UIKit.framework */; };
 		2FFD60B716E3FA3C000E3366 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFD60B616E3FA3C000E3366 /* Foundation.framework */; };
 		2FFD60B916E3FA3C000E3366 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFD60B816E3FA3C000E3366 /* CoreGraphics.framework */; };
@@ -49,6 +50,8 @@
 		2F374A0016EB243B00F25AF1 /* Schedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Schedule.m; sourceTree = "<group>"; };
 		2F374A0216EC32AC00F25AF1 /* AddScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddScheduleController.h; sourceTree = "<group>"; };
 		2F374A0316EC32AC00F25AF1 /* AddScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddScheduleController.m; sourceTree = "<group>"; };
+		2F374A0816ED76FF00F25AF1 /* GlobalAppDataSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalAppDataSingleton.h; sourceTree = "<group>"; };
+		2F374A0916ED76FF00F25AF1 /* GlobalAppDataSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalAppDataSingleton.m; sourceTree = "<group>"; };
 		2FFD60B116E3FA3C000E3366 /* Home-Automation1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Home-Automation1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FFD60B416E3FA3C000E3366 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2FFD60B616E3FA3C000E3366 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -127,6 +130,8 @@
 				2FFD60C316E3FA3C000E3366 /* home_autoAppDelegate.h */,
 				2FFD60C416E3FA3C000E3366 /* home_autoAppDelegate.m */,
 				2FFD60CC16E3FA3C000E3366 /* MainStoryboard.storyboard */,
+				2F374A0816ED76FF00F25AF1 /* GlobalAppDataSingleton.h */,
+				2F374A0916ED76FF00F25AF1 /* GlobalAppDataSingleton.m */,
 				2FFD60E516E97870000E3366 /* Outlet.h */,
 				2FFD60E616E97870000E3366 /* Outlet.m */,
 				2F3749FF16EB243B00F25AF1 /* Schedule.h */,
@@ -271,6 +276,7 @@
 				2F3749FE16EB141000F25AF1 /* OutletScheduleController.m in Sources */,
 				2F374A0116EB243C00F25AF1 /* Schedule.m in Sources */,
 				2F374A0416EC32AD00F25AF1 /* AddScheduleController.m in Sources */,
+				2F374A0A16ED76FF00F25AF1 /* GlobalAppDataSingleton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
