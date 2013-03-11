@@ -24,9 +24,9 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  self.appData = [GlobalAppDataSingleton globalAppDataSingleton];
 	// Do any additional setup after loading the view.
   self.navigationItem.title = [NSString stringWithFormat:@"Rename Outlet #%i",
                                [self.outlet.userOutletNumber integerValue] + 1];
@@ -43,7 +43,7 @@
 - (IBAction)renameOutlet:(id)sender {
   NSLog(@"Outlet #%@ Renamed to: %@", self.outlet.userOutletNumber, self.renameOutletTextField.text);
   // Send to back end and update model
-  NSURL *urlBase = [NSURL URLWithString:@"http://localhost:9292/"];
+  NSURL *urlBase = self.appData.urlBase;
   NSString *urlRelative = [NSString stringWithFormat:@"/outlets/%@/rename", self.outlet.outletId];
   
   AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:urlBase];

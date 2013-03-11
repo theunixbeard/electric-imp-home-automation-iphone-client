@@ -11,6 +11,7 @@
 @interface GlobalAppDataSingleton : NSObject
 
 @property (nonatomic, strong) NSMutableArray *masterOutletList;
+@property (nonatomic, copy) NSURL *urlBase;
 
 +(GlobalAppDataSingleton *)globalAppDataSingleton;
 

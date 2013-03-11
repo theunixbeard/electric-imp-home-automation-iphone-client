@@ -27,6 +27,8 @@
 }
 
 -(void)initMasterOutletListFromBackendAndUpdateTable:(UITableView *)tableView {
+  self.urlBase = [NSURL URLWithString:@"http://ec2-184-169-233-178.us-west-1.compute.amazonaws.com/"];
+  //self.urlBase = [NSURL URLWithString:@"http://localhost:9292/"];
   if (self.masterOutletList == nil){
     self.masterOutletList = [[NSMutableArray alloc] init];
     [self refreshMasterOutletListFromBackendAndUpdateTable:tableView];
@@ -34,7 +36,7 @@
 }
 
 -(void)refreshMasterOutletListFromBackendAndUpdateTable:(UITableView *)tableView {
-  NSURL *url = [NSURL URLWithString:@"http://localhost:9292/outlets.json"];
+  NSURL *url = [NSURL URLWithString:@"/outlets.json" relativeToURL:self.urlBase];
   NSURLRequest *request = [NSURLRequest requestWithURL:url];
   AFJSONRequestOperation *operation;
   operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request

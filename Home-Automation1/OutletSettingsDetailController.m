@@ -28,8 +28,8 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-
+  [super viewDidLoad];
+  self.appData = [GlobalAppDataSingleton globalAppDataSingleton];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -61,7 +61,7 @@
   // Actually send this to back end here and update the model
   NSNumber *switchValue = switch_sender.on ? [NSNumber numberWithInt:1] : [NSNumber numberWithInt:0];
   self.outlet.overrideActive = switch_sender.on ? [NSNumber numberWithInt:0] : [NSNumber numberWithInt:1];
-  NSURL *urlBase = [NSURL URLWithString:@"http://localhost:9292/"];
+  NSURL *urlBase = self.appData.urlBase;
   NSString *urlRelative = [NSString stringWithFormat:@"/outlets/%@/schedule-toggle", self.outlet.outletId];
   
   AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:urlBase];

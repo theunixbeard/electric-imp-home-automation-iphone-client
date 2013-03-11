@@ -29,7 +29,8 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+  [super viewDidLoad];
+  self.appData = [GlobalAppDataSingleton globalAppDataSingleton];
 	// Do any additional setup after loading the view.
   [self.addScheduleLabel setText: [NSString stringWithFormat:@"Turn %@:", [self.outlet humanReadableOutletName]]];
 }

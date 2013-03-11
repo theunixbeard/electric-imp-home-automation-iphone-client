@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Schedule.h"
 #import "Outlet.h"
+#import "GlobalAppDataSingleton.h"
 
 @interface AddScheduleController : UIViewController  <UIPickerViewDataSource, UIPickerViewDelegate>
 
+@property (nonatomic, strong) GlobalAppDataSingleton *appData;
 @property (strong, nonatomic) Schedule *schedule;
 @property (strong, nonatomic) Outlet *outlet;
 

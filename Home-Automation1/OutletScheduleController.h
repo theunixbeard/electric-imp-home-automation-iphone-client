@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Outlet.h"
+#import "GlobalAppDataSingleton.h"
 
 @interface OutletScheduleController : UITableViewController
 
+@property (nonatomic, strong) GlobalAppDataSingleton *appData;
 @property (nonatomic, strong) NSMutableArray *masterScheduleList; // A 2D array, w/ 7 rows, 1 for each day of the week
 @property (strong, nonatomic) Outlet *outlet;
 

@@ -142,7 +142,7 @@
   NSNumber *value = switch_sender.on ? [NSNumber numberWithInt:1] : [NSNumber numberWithInt:0];
   NSLog(@"Outlet #%@ Power Switch Toggled to: %@", toggledOutlet.outletId, value);
   // Actually send this to back end here (Using outletId NOT userOutletNumber...!)
-  NSURL *urlBase = [NSURL URLWithString:@"http://localhost:9292/"];
+  NSURL *urlBase = self.appData.urlBase;
   NSString *urlRelative = [NSString stringWithFormat:@"/outlets/%@/power-toggle", toggledOutlet.outletId];
   
   AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:urlBase];

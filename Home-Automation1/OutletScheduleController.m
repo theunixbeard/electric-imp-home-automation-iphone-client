@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-
+  self.appData = [GlobalAppDataSingleton globalAppDataSingleton];
   // Uncomment the following line to preserve selection between presentations.
   // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -149,7 +149,7 @@
       // Delete the row from the data source
       // Send to backend as well here??????????????
       NSNumber *scheduleId = [[[self.masterScheduleList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] scheduleId];
-      NSURL *urlBase = [NSURL URLWithString:@"http://localhost:9292/"];
+      NSURL *urlBase = self.appData.urlBase;
       NSString *urlRelative = [NSString stringWithFormat:@"/outlets/%@/schedules/%@/delete", self.outlet.outletId, scheduleId];
       
       AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:urlBase];
@@ -190,7 +190,6 @@
       }
       return NO;
     }];
-    NSLog(@"already exists: %i", alreadyExists);
     if(alreadyExists == NSNotFound) {
       [dayArray addObject:addScheduleController.schedule];
       [dayArray sortUsingComparator:^NSComparisonResult(id a, id b) {
@@ -199,7 +198,7 @@
         return [first compare:second];
       }];
       //SEND TO BACKEND TO PERSIST DATA!!!!
-      NSURL *urlBase = [NSURL URLWithString:@"http://localhost:9292/"];
+      NSURL *urlBase = self.appData.urlBase;
       NSString *urlRelative = [NSString stringWithFormat:@"/outlets/%@/schedules/new", self.outlet.outletId];
       
       AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:urlBase];
